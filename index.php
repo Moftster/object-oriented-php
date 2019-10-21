@@ -1,10 +1,10 @@
 <?php 
 
-class Customer {
-    public $id;
-    public $name;
-    public $email;
-    public $balance;
+abstract class Customer {
+    private $id;
+    private $name;
+    protected $email;
+    private $balance;
 
     public function __construct($id, $name, $email, $balance) {
         $this->id = $id;
@@ -13,14 +13,30 @@ class Customer {
         $this->balance = $balance;
     }
 
+    abstract public function getEmail();
+
+}
+
+// $customer = new Customer(1, 'Dave M', 'dave@gmail.com', 0);
+
+class Subscriber extends Customer {
+    public $plan;
+
+    public function __construct($id, $name, $email, $balance, $plan) {
+        parent::__construct($id, $name, $email, $balance);
+        $this->plan = $plan;
+    }
+
     public function getEmail() {
         return $this->email;
     }
 
+
 }
 
-$customer = new Customer(1, 'Dave M', 'dave@gmail.com', 0);
+$subscriber = new Subscriber(1, 'Dave M', 'dave@hotmail.com', 0, 'Pro');
 
-echo $customer->getEmail();
+echo $subscriber->getEmail();
+
 
 ?>
